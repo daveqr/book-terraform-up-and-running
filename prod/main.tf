@@ -1,6 +1,6 @@
 provider "aws" {
-  region = "us-east-1"
   profile = "lipscomb"
+  region = "us-east-1"
 }
 
 data "aws_availability_zones" "all" {}
@@ -72,7 +72,7 @@ resource "aws_autoscaling_group" "example" {
     value = "terraform-asg-example"
     propagate_at_launch = true
   }
-  
+
 }
 
 resource "aws_launch_configuration" "example" {
@@ -112,4 +112,9 @@ resource "aws_security_group" "instance" {
 
 output "elb_dns_name" {
   value = "${aws_elb.example.dns_name}"
+}
+
+terraform {
+  # The configuration for this backend will be filled in by Terragrunt
+  backend "s3" {}
 }
