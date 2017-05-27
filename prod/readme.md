@@ -1,0 +1,1 @@
+This is a standard Terraform version, using Terragrunt for state. 
