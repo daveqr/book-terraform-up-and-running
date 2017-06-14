@@ -43,6 +43,14 @@ data "aws_iam_policy_document" "cloudwatch_read_only" {
   }
 }
 
+# Policy documents are data sources which can be used to construct a JSON template to be
+# used by resources which expect JSON, such as the aws_iam_policy. It's easier to create
+# a datasource than a JSON representation of the datasource. This is an example of letting
+# humans do what they're good at (telling the computer what they want) and letting computers
+# do what they're good at (doing what the human has told them to do, ie convert the data
+# source into JSON.)
+#
+# NOTE: This is a data source and therefore doesn't create anything directly on AWS. 
 data "aws_iam_policy_document" "cloudwatch_full_access" {
   statement {
     effect    = "Allow"
@@ -53,7 +61,9 @@ data "aws_iam_policy_document" "cloudwatch_full_access" {
 
 # IAM policy which allows read-only access to CloudWatch
 resource "aws_iam_policy" "cloudwatch_read_only" {
-  name   = "cloudwatch-read-only"
+  name = "cloudwatch-read-only"
+
+  # note this is using a data source to create a json policy value
   policy = "${data.aws_iam_policy_document.cloudwatch_read_only.json}"
 }
 

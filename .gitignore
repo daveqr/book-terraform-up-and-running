@@ -95,7 +95,8 @@ Temporary Items
 .terraform
 terraform.tfstate
 terraform.tfstate.backup
-*.tfvars
+# used by Terragrunt
+# *.tfvars
 
 ### Terraform Patch ###
 ### Windows ###
